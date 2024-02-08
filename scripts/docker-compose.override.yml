@@ -1,0 +1,31 @@
+services:
+    phpmyadmin:
+        container_name: padel-phpmyadmin
+        image: phpmyadmin
+        restart: always
+        env_file:
+            - ../.env
+        networks:
+            - local
+            - proxy
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.phpmyadmin.entrypoints=websecure"
+            - "traefik.http.routers.phpmyadmin.tls=true"
+            - "traefik.docker.network=traefik-proxy"
+            - "traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.padel.local`)"
+    server:
+        networks:
+            - local
+            - proxy
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.server.entrypoints=websecure"
+            - "traefik.http.routers.server.tls=true"
+            - "traefik.docker.network=traefik-proxy"
+            - "traefik.http.routers.server.rule=Host(`api.padel.local`)"
+
+networks:
+    proxy:
+        name: traefik-proxy
+        external: true

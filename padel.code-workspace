@@ -1,0 +1,15 @@
+{
+	"folders": [
+		// {
+		// 	"path": "docker"
+		// },
+		{
+			"path": "scripts"
+		},
+		{
+			"path": "source/server",
+            "name": "server",
+		},
+	],
+	"settings": {}
+}
